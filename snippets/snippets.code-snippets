@@ -386,31 +386,838 @@
       },
 
       //2: Script functions
+      "Get Script Environment": {
+        "prefix": "getsenv",
+        "body": [
+          "getsenv(${1:Script})"
+        ],
+        "description": "Returns the environment of Script. Errors if the script is not loaded in memory."
+      },
+      "Get Calling Script": {
+        "prefix": "getcallingscript",
+        "body": [
+          "getcallingscript()"
+        ],
+        "description": "Gets the script that is calling this function. "
+      },
+      "Get Script Closure": {
+        "prefix": "getscriptclosure",
+        "body": [
+          "getscriptclosure(${1:Script})"
+        ],
+        "description": "Gets a bare function from the script passed. Please note this is not the original function of the script and will not have upvalues/enviornment correctly defined."
+      },
+      "Get Script Hash": {
+        "prefix": "getscripthash",
+        "body": [
+          "getscripthash(${1:Script})"
+        ],
+        "description": "Returns a SHA384 hash of the scripts bytecode. You can use this to detect changes of a script."
+      },
 
       //3: Table functions
+      "Get Raw Metatable": {
+        "prefix": "getrawmetatable",
+        "body": [
+          "getrawmetatable(${1:value})"
+        ],
+        "description": "Retrieve the metatable of value irregardless of value's metatable's __metatable field. Returns nil if it doesn't exist."
+      },
+      "Set Raw Metatable": {
+        "prefix": "setrawmetatable",
+        "body": [
+          "setrawmetatable(${1:o}, ${2:mt})"
+        ],
+        "description": "Sets o's metatable to mt even if the __metatable field exists in o's metatable."
+      },
+      "Set Readonly": {
+        "prefix": "setreadonly",
+        "body": [
+          "setreadonly(${1:t}, ${2:val})"
+        ],
+        "description": "Sets t's read-only value to val."
+      },
+      "Is Readonly": {
+        "prefix": "isreadonly",
+        "body": [
+          "isreadonly(${1:t})"
+        ],
+        "description": "Returns t's read-only condition. "
+      },
 
       //4: Input functions
+      "Is Active": {
+        "prefix": "iswindowactive",
+        "body": [
+          "iswindowactive()"
+        ],
+        "description": "Returns if the main window is in focus. This must return true for any other mouse/keyboard function to work."
+      },
+      "Keyboard press": {
+        "prefix": "keypress",
+        "body": [
+          "keypress(${1:keycode})"
+        ],
+        "description": "Simulates a key press for the specified keycode. Keycodes are listed here(https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes)."
+      },
+      "Keyboard release": {
+        "prefix": "keyrelease",
+        "body": [
+          "keyrelease(${1:key})"
+        ],
+        "description": "Releases key on the keyboard. Keycodes are listed here(https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes)."
+      },
+      "Left Click": {
+        "prefix": "mouse1click",
+        "body": [
+          "mouse1click()"
+        ],
+        "description": "Simulates a full left mouse button press."
+      },
+      "Left Click press": {
+        "prefix": "mouse1press",
+        "body": [
+          "mouse1press()"
+        ],
+        "description": "Simulates a left mouse button press without releasing it."
+      },
+      "Left Click release": {
+        "prefix": "mouse1release",
+        "body": [
+          "mouse1release()"
+        ],
+        "description": "Simulates a left mouse button release."
+      },
+      "Right Click": {
+        "prefix": "mouse2click",
+        "body": [
+          "mouse2click()"
+        ],
+        "description": "Simulates a full right mouse button press."
+      },
+      "Right Click press": {
+        "prefix": "mouse2press",
+        "body": [
+          "mouse2press()"
+        ],
+        "description": "Clicks down on the right mouse button."
+      },
+      "Right Click release": {
+        "prefix": "mouse2release",
+        "body": [
+          "mouse2release()"
+        ],
+        "description": "Simulates a right mouse button release."
+      },
+      "Mouse Movement Scroll": {
+        "prefix": "mousescroll",
+        "body": [
+          "mousescroll(${1:px})"
+        ],
+        "description": "Scrolls the mouse wheel virtually by px pixels."
+      },
+      "Mouse Movement Relative": {
+        "prefix": "mousemoverel",
+        "body": [
+          "mousemoverel(${1:x}, ${2:y})"
+        ],
+        "description": "Moves the mouse cursor relatively to the current mouse position by coordinates x and y."
+      },
+      "Mouse Movement Absolute": {
+        "prefix": "mousemoveabs",
+        "body": [
+          "mousemoveabs(${1:x}, ${2:y})"
+        ],
+        "description": "Move's your mouse to the x and y coordinates in pixels from topleft of the main window."
+      },
 
       //5: Hooking functions
+      "Hook Function": {
+        "prefix": "hookfunction",
+        "body": [
+          "hookfunction(${1:old}, ${2:hook})"
+        ],
+        "description": "Hooks function old, replacing it with the function hook. The old function is returned, you must use this function in order to call the original function."
+      },
+      "Hook Metamethod": {
+        "prefix": "hookmetamethod",
+        "body": [
+          "hookmetamethod(${1:object}, ${2:metamethod}, ${3:hook})"
+        ],
+        "description": "Hooks the metamethod passed in the object's metatable with hook. A function to call the original metamethod is returned, you must use this function in order to call the original metamethod. This function will error if an object without a metatable is passed or a invalid metamethod is passed."
+      },
+      "New C Closure": {
+        "prefix": "newcclosure",
+        "body": [
+          "newcclosure(${1:f})"
+        ],
+        "description": "Pushes a new CClosure that invokes function f upon call."
+      },
 
       //6: Reflection functions
+      "Loadstring": {
+        "prefix": "loadstring",
+        "body": [
+          "loadstring(${1:chunk})"
+        ],
+        "description": "Loads chunk as a Lua function with optional chunk_name and returns it if compilation is successful. Otherwise, if an error has occurred during compilation, nil followed by the error message will be returned."
+      },
+      "Check Caller": {
+        "prefix": "checkcaller",
+        "body": [
+          "checkcaller()"
+        ],
+        "description": "Returns true if the current thread is a Synapse thread. Note: Checkcaller does NOT check the call stack of the function, if you call a game function then it calls out to checkcaller, the result will be true! Be careful."
+      },
+      "Is Lua Closure": {
+        "prefix": "islclosure",
+        "body": [
+          "islclosure(${1:f})"
+        ],
+        "description": "Returns true if f is an LClosure."
+      },
+      "Dump String": {
+        "prefix": "dumpstring",
+        "body": [
+          "dumpstring(${1:script})"
+        ],
+        "description": "Returns the Synapse formatted bytecode for source string script."
+      },
+      "Decompile": {
+        "prefix": "decompile",
+        "body": [
+          "decompile(${1:Script}, ${2:mode}, ${3:timeout})"
+        ],
+        "description": "Decompiles Script and returns the decompiled script with timeout. If the decompilation fails, then the return value will be an error message. Note: The mode parameter is deprecated and is not used in newer versions of Synapse."
+      },
 
       //7: Console functions
+      "Console Print": {
+        "prefix": "rconsoleprint",
+        "body": [
+          "rconsoleprint(${1:message})"
+        ],
+        "description": "Prints message into the console. rconsoleprint also supports colors. for more info: https://x.synapse.to/docs/reference/console.html#console-print"
+      },
+      "Console Info": {
+        "prefix": "rconsoleinfo",
+        "body": [
+          "rconsoleinfo(${1:message})"
+        ],
+        "description": "Prints message into the console, with a info text before it."
+      },
+      "Console Warn": {
+        "prefix": "rconsolewarn",
+        "body": [
+          "rconsolewarn(${1:message})"
+        ],
+        "description": "Prints message into the console, with a warning text before it."
+      },
+      "Console Error": {
+        "prefix": "rconsoleerr",
+        "body": [
+          "rconsoleerr(${1:message})"
+        ],
+        "description": "Prints message into the console, with a error text before it."
+      },
+      "Console Clear": {
+        "prefix": "rconsoleclear",
+        "body": [
+          "rconsoleclear()"
+        ],
+        "description": "Clears the console."
+      },
+      "Console Name": {
+        "prefix": "rconsolename",
+        "body": [
+          "rconsolename(${1:title})"
+        ],
+        "description": "Sets the currently allocated console title to title."
+      },
+      "Console Input": {
+        "prefix": "rconsoleinput",
+        "body": [
+          "rconsoleinput()"
+        ],
+        "description": "Yields until the user inputs information into their console. Returns the input they put in."
+      },
+      "Print Console": {
+        "prefix": "printconsole",
+        "body": [
+          "printconsole(${1:message}, ${2:red}, ${3:green}, ${4:blue})"
+        ],
+        "description": "Prints message into the internal and integrated console with RGB value. To view the internal console, enable Internal UI in the Options menu and when in-game press INSERT on your keyboard. The integrated console can be found in the new synapse UI."
+      },
 
       //8: Filesystem functions
+      "Read File": {
+        "prefix": "readfile",
+        "body": [
+          "readfile(${1:path})"
+        ],
+        "description": "Reads the contents of the file located at path and returns it. If the file does not exist, it errors."
+      },
+      "Write File": {
+        "prefix": "writefile",
+        "body": [
+          "writefile(${1:path}, ${2:content})"
+        ],
+        "description": "Writes contents to the supplied path. Extensions that are not allowed: .exe, .scr, .bat, .com, .csh, .msi, .vb, .vbs, .vbe, .ws, .wsf, .wsh, .ps1, .psy. Attempting to call this function with those extensions will error."
+      },
+      "Append File": {
+        "prefix": "appendfile",
+        "body": [
+          "appendfile(${1:path}, ${2:content})"
+        ],
+        "description": "Appends content to the file contents at path. If the file does not exist, it errors."
+      },
+      "Load File": {
+        "prefix": "loadfile",
+        "body": [
+          "loadfile(${1:path})"
+        ],
+        "description": "Loads in the contents of a file as a chunk and returns it if compilation is successful. Otherwise, if an error has occurred during compilation, nil followed by the error message will be returned."
+      },
+      "List Files": {
+        "prefix": "listfiles",
+        "body": [
+          "listfiles(${1:folder})"
+        ],
+        "description": "Returns a table of files in folder."
+      },
+      "Is File": {
+        "prefix": "isfile",
+        "body": [
+          "isfile(${1:path})"
+        ],
+        "description": "Returns if path is a file or not."
+      },
+      "Is Folder": {
+        "prefix": "isfolder",
+        "body": [
+          "isfolder(${1:path})"
+        ],
+        "description": "Returns if path is a folder or not."
+      },
+      "Make Folder": {
+        "prefix": "makefolder",
+        "body": [
+          "makefolder(${1:path})"
+        ],
+        "description": "Creates a new folder at path."
+      },
+      "Delete Folder": {
+        "prefix": "delfolder",
+        "body": [
+          "delfolder(${1:path})"
+        ],
+        "description": "Deletes the folder in the supplied path, if no folder exists, it errors."
+      },
+      "Delete File": {
+        "prefix": "delfile",
+        "body": [
+          "delfile(${1:path})"
+        ],
+        "description": "Deletes the file in the supplied path, if no file exists, it errors."
+      },
 
       //9: Miscellaneous functions
+      "Set Clipboard": {
+        "prefix": "setclipboard",
+        "body": [
+          "setclipboard(${1:value})"
+        ],
+        "description": "Sets value to the clipboard."
+      },
+      "Set Fast Flag": {
+        "prefix": "setfflag",
+        "body": [
+          "setfflag(${1:FFlag}, ${2:Value})"
+        ],
+        "description": "Sets FFlag with Value. Must be run before the game loads, auto execute + auto launch recommended."
+      },
+      "Get Namecall Method": {
+        "prefix": "getnamecallmethod",
+        "body": [
+          "getnamecallmethod()"
+        ],
+        "description": "Returns the namecall method if the function is called in an __namecall metatable hook."
+      },
+      "Set Namecall Method": {
+        "prefix": "setnamecallmethod",
+        "body": [
+          "setnamecallmethod(${1:method})"
+        ],
+        "description": "Sets the current namecall method to the new namecall method. Must be called in a __namecall metatable hook."
+      },
+      "Get Synapse Asset": {
+        "prefix": "getsynasset",
+        "body": [
+          "getsynasset(${1:path})"
+        ],
+        "description": "Returns a Content string that can be used as a fake Asset ID for GUI elements. Please note this will only affect your client. Note: Certain instances only work with specific file types. For example, VideoFrame's only work with .webm encoded videos."
+      },
+      "Get Special Info": {
+        "prefix": "getspecialinfo",
+        "body": [
+          "getspecialinfo(${1:obj})"
+        ],
+        "description": "Gets a list of special properties for MeshParts, UnionOperations, and Terrain instances. More info: https://x.synapse.to/docs/reference/misc.html#get-special-info"
+      },
+      "Save Instance": {
+        "prefix": "saveinstance",
+        "body": [
+          "saveinstance(${1:t})"
+        ],
+        "description": "Saves the current game into your workspace folder. You can use table t to customize options for this. More info: https://x.synapse.to/docs/reference/misc.html#save-instance"
+      },
+      "Message Box": {
+        "prefix": "messagebox",
+        "body": [
+          "messagebox(${1:text}, ${2:caption}, ${3:flags})"
+        ],
+        "description": "Creates a message box with parameters text, caption and style. More info: https://x.synapse.to/docs/reference/misc.html#message-box"
+      },
 
       //10: Libraries
       //10.1: Bit library
+      "bdiv": {
+        "prefix": "bit.bdiv",
+        "body": [
+          "bit.bdiv(${1:dividend}, ${2:divisor})"
+        ],
+        "description": "Divides dividend by divisor, remainder is not returned."
+      },
+      "badd": {
+        "prefix": "bit.badd",
+        "body": [
+          "bit.badd(${1:a}, ${2:b})"
+        ],
+        "description": "Adds a with b, allows overflows."
+      },
+      "bsub": {
+        "prefix": "bit.bsub",
+        "body": [
+          "bit.bsub(${1:a}, ${2:b})"
+        ],
+        "description": "Subtracts a with b, allows overflows. "
+      },
+      "bmul": {
+        "prefix": "bit.bmul",
+        "body": [
+          "bit.bmul(${1:val}, ${2:by})"
+        ],
+        "description": "Multiplies val using by, allows overflows. Note: All bitwise functions within the bit lib return signed 32 bit integers. Take good note of that when implementing. If you want unsigned results, we suggest using bit32."
+      },
+      "band": {
+        "prefix": "bit.band",
+        "body": [
+          "bit.band(${1:val}, ${2:by})"
+        ],
+        "description": "Does a bitwise AND (&) on val using by."
+      },
+      "bor": {
+        "prefix": "bit.bor",
+        "body": [
+          "bit.bor(${1:val}, ${2:by})"
+        ],
+        "description": "Does a bitwise OR (|) on val using by."
+      },
+      "bxor": {
+        "prefix": "bit.bxor",
+        "body": [
+          "bit.bxor(${1:val}, ${2:by})"
+        ],
+        "description": "Does a bitwise XOR (⊕) on val using by."
+      },
+      "bnot": {
+        "prefix": "bit.bnot",
+        "body": [
+          "bit.bnot(${1:val})"
+        ],
+        "description": "Does a bitwise NOT on val."
+      },
+      "bswap": {
+        "prefix": "bit.bswap",
+        "body": [
+          "bit.bswap(${1:val})"
+        ],
+        "description": "Does a bitwise swap on val."
+      },
+      "ror": {
+        "prefix": "bit.ror",
+        "body": [
+          "bit.ror(${1:value}, ${2:rotate_count})"
+        ],
+        "description": "Returns the value rotated right by rotate_count."
+      },
+      "rol": {
+        "prefix": "bit.rol",
+        "body": [
+          "bit.rol(${1:value}, ${2:rotate_count})"
+        ],
+        "description": "Returns the value rotated left by rotate_count."
+      },
+      "tohex": {
+        "prefix": "bit.tohex",
+        "body": [
+          "bit.tohex(${1:val})"
+        ],
+        "description": "Converts val to a hex string."
+      },
+      "tobit": {
+        "prefix": "bit.tobit",
+        "body": [
+          "bit.tobit(${1:val})"
+        ],
+        "description": "Converts val into proper form for bitwise operations."
+      },
+      "lshift": {
+        "prefix": "bit.lshift",
+        "body": [
+          "bit.lshift(${1:val}, ${2:by})"
+        ],
+        "description": "Does a left shift on val using by."
+      },
+      "rshift": {
+        "prefix": "bit.rshift",
+        "body": [
+          "bit.rshift(${1:val}, ${2:by})"
+        ],
+        "description": "Does a right shift on val using by."
+      },
+      "arshift": {
+        "prefix": "bit.arshift",
+        "body": [
+          "bit.arshift(${1:value}, ${2:shift_count})"
+        ],
+        "description": "Returns the arithmetically shifted value."
+      },
 
       //10.2: Crypt library
+      "Encrypt": {
+        "prefix": "syn.crypt.encrypt",
+        "body": [
+          "syn.crypt.encrypt(${1:data}, ${2:key})"
+        ],
+        "description": "Encrypts data with key (algorithm used is AES-GCM, random nonce generated per call)."
+      },
+      "Decrypt": {
+        "prefix": "syn.crypt.decrypt",
+        "body": [
+          "syn.crypt.decrypt(${1:data}, ${2:key})"
+        ],
+        "description": "Decrypts data with key."
+      },
+      "Base64 Encode": {
+        "prefix": "syn.crypt.base64.encode",
+        "body": [
+          "syn.crypt.base64.encode(${1:data})"
+        ],
+        "description": "Encodes data with base64."
+      },
+      "Base64 Decode": {
+        "prefix": "syn.crypt.base64.decode",
+        "body": [
+          "syn.crypt.base64.decode(${1:data})"
+        ],
+        "description": "Decodes data with base64."
+      },
+      "Hash": {
+        "prefix": "syn.crypt.hash",
+        "body": [
+          "syn.crypt.hash(${1:data})"
+        ],
+        "description": "Hashes data with SHA-384."
+      },
+      "Derive": {
+        "prefix": "syn.crypt.derive",
+        "body": [
+          "syn.crypt.derive(${1:value}, ${2:len})"
+        ],
+        "description": "Derives a secret key from value with the length of len."
+      },
+      "Random": {
+        "prefix": "syn.crypt.random",
+        "body": [
+          "syn.crypt.random(${1:size})"
+        ],
+        "description": "Generates a random string with size (cannot be negative or exceed 1024)."
+      },
+      "Custom Encrypt": {
+        "prefix": "syn.crypt.custom.encrypt",
+        "body": [
+          "syn.crypt.custom.encrypt(${1:cipher}, ${2:data}, ${3:key}, ${4:iv/nonce})"
+        ],
+        "description": "Encrypts data with key using selected cipher and iv/nonce. Ciphers: https://x.synapse.to/docs/reference/crypt_lib.html#encryptiondecryption-ciphers"
+      },
+      "Custom Decrypt": {
+        "prefix": "syn.crypt.custom.decrypt",
+        "body": [
+          "syn.crypt.custom.decrypt(${1:cipher}, ${2:data}, ${3:key}, ${4:iv/nonce})"
+        ],
+        "description": "Decrypts data with key using selected cypher and iv/nonce. Ciphers: https://x.synapse.to/docs/reference/crypt_lib.html#encryptiondecryption-ciphers"
+      },
+      "Custom hash": {
+        "prefix": "syn.crypt.custom.hash",
+        "body": [
+          "syn.crypt.custom.hash(${1:algorithm}, ${2:data})"
+        ],
+        "description": "Hashes data with algorithm. Hashing algos: https://x.synapse.to/docs/reference/crypt_lib.html#hashing-algorithms"
+      },
+
 
       //10.3: Debug library
+      "Get Constants": {
+        "prefix": "debug.getconstants",
+        "body": [
+          "debug.getconstants(${1:fi})"
+        ],
+        "description": "Retrieve the constants in function fi or at level fi."
+      },
+      "Get Constant": {
+        "prefix": "debug.getconstant",
+        "body": [
+          "debug.getconstant(${1:fi}, ${2:idx})"
+        ],
+        "description": "Returns the constant at index idx in function fi or level fi."
+      },
+      "Set Constant": {
+        "prefix": "debug.setconstant",
+        "body": [
+          "debug.setconstant(${1:fi}, ${2:idx}, ${3:value})"
+        ],
+        "description": "Set constant idx to tuple value at level or function fi."
+      },
+      "Get Upvalues": {
+        "prefix": "debug.getupvalues",
+        "body": [
+          "debug.getupvalues(${1:fi})"
+        ],
+        "description": "Retrieve the upvalues in function fi or at level fi."
+      },
+      "Get Upvalue": {
+        "prefix": "debug.getupvalue",
+        "body": [
+          "debug.getupvalue(${1:fi}, ${2:idx})"
+        ],
+        "description": "Returns the upvalue with name idx in function or level fi."
+      },
+      "Set Upvalue": {
+        "prefix": "debug.setupvalue",
+        "body": [
+          "debug.setupvalue(${1:fi}, ${2:idx}, ${3:value})"
+        ],
+        "description": "Set upvalue idx to value value at level or function fi."
+      },
+      "Get Protos": {
+        "prefix": "debug.getprotos",
+        "body": [
+          "debug.getprotos(${1:f})"
+        ],
+        "description": "Returns a table containing the inner functions of function f. Note these functions will not have upvalues, use debug.getproto with activated true to get a list of instances."
+      },
+      "Get Proto": {
+        "prefix": "debug.getproto",
+        "body": [
+          "debug.getproto(${1:f}, ${2:index}, ${3:activated})"
+        ],
+        "description": "Gets the inner function of f at index. Note if activated is true, instead it will return a table of functions. These are the instances of that function that exist within the GC."
+      },
+      "Set Proto": {
+        "prefix": "debug.setproto",
+        "body": [
+          "debug.setproto(${1:fi}, ${2:index}, ${3:replacement})"
+        ],
+        "description": "Replaces fi at index with function replacement at level or function fi."
+      },
+      "Get Stack": {
+        "prefix": "debug.getstack",
+        "body": [
+          "debug.getstack(${1:indice})"
+        ],
+        "description": "Gets the method stack at level indice."
+      },
+      "Set Stack": {
+        "prefix": "debug.setstack",
+        "body": [
+          "debug.setstack(${1:indice}, ${2:indice}, ${3:value})"
+        ],
+        "description": "Set the stack indice at level indice to value value at level or function fi."
+      },
+      "Set Metatable": {
+        "prefix": "debug.setmetatable",
+        "body": [
+          "debug.setmetatable(${1:o}, ${2:mt})"
+        ],
+        "description": "Set the metatable of o to mt."
+      },
+      "Debug Get Registry": {
+        "prefix": "debug.getregistry",
+        "body": [
+          "debug.getregistry()"
+        ],
+        "description": "Returns the Lua registry."
+      },
+      "Get Info": {
+        "prefix": "debug.getinfo",
+        "body": [
+          "debug.getinfo(${1:fi})"
+        ],
+        "description": "Returns a table of info pertaining to the lua function fi."
+      },
 
       //10.4: Drawing library
+      "Drawing New": {
+        "prefix": "Drawing.new",
+        "body": [
+          "Drawing.new(${1:type})"
+        ],
+        "description": "Creates a new drawing object with type. Returns the object. Docs: https://x.synapse.to/docs/reference/drawing_lib.html#drawing-library"
+      },
+      "UI font": {
+        "prefix": "Drawing.Fonts[\"UI\"]",
+        "body": [
+          "Drawing.Fonts[\"UI\"]"
+        ],
+        "description": "UI font"
+      },
+      "System font": {
+        "prefix": "Drawing.Fonts[\"System\"]",
+        "body": [
+          "Drawing.Fonts[\"System\"]"
+        ],
+        "description": "System font"
+      },
+      "Plex font": {
+        "prefix": "Drawing.Fonts[\"Plex\"]",
+        "body": [
+          "Drawing.Fonts[\"Plex\"]"
+        ],
+        "description": "Plex font"
+      },
+      "Monospace font": {
+        "prefix": "Drawing.Fonts[\"Monospace\"]",
+        "body": [
+          "Drawing.Fonts[\"Monospace\"]"
+        ],
+        "description": "Monospace font"
+      },
+      "Font": {
+        "prefix": "Drawing.Font",
+        "body": [
+          "Drawing.Font"
+        ],
+        "description": "The font class"
+      },
 
       //10.5: Syn library
+      "Cache Replace": {
+        "prefix": "syn.cache_replace",
+        "body": [
+          "syn.cache_replace(${1:obj}, ${2:t_obj})"
+        ],
+        "description": "Replace obj in the instance cache with t_obj."
+      },
+      "Cache Invalidate": {
+        "prefix": "syn.cache_invalidate",
+        "body": [
+          "syn.cache_invalidate(${1:obj})"
+        ],
+        "description": "Invalidate obj's cache entry, forcing a re-cache upon the next lookup."
+      },
+      "Set Thread Identity": {
+        "prefix": "syn.set_thread_identity",
+        "body": [
+          "syn.set_thread_identity(${1:n})"
+        ],
+        "description": "Sets the current thread identity."
+      },
+      "Get Thread Identity": {
+        "prefix": "syn.get_thread_identity",
+        "body": [
+          "syn.get_thread_identity()"
+        ],
+        "description": "Returns the current thread identity."
+      },
+      "Is Cached": {
+        "prefix": "syn.is_cached",
+        "body": [
+          "syn.is_cached(${1:obj})"
+        ],
+        "description": "Returns true if obj is currently cached within the registry."
+      },
+      "Write Clipboard": {
+        "prefix": "syn.write_clipboard",
+        "body": [
+          "syn.write_clipboard(${1:content})"
+        ],
+        "description": "Writes content to the current Windows clipboard."
+      },
+      "Queue On Teleport": {
+        "prefix": "syn.queue_on_teleport",
+        "body": [
+          "syn.queue_on_teleport(${1:code})"
+        ],
+        "description": "Executes code after player is teleported. Example: https://x.synapse.to/docs/reference/syn_lib.html#example"
+      },
+      "Protect Gui": {
+        "prefix": "syn.protect_gui",
+        "body": [
+          "syn.protect_gui(${1:GUI})"
+        ],
+        "description": "Protects your GUI from recursive FindFirstChild-style attacks. After you call the function, recursive FFA calls from non-Synapse contexts will skip over your protected instances & all children of such instances. Example: https://x.synapse.to/docs/reference/syn_lib.html#example-1"
+      },
+      "Unprotect Gui": {
+        "prefix": "syn.unprotect_gui",
+        "body": [
+          "syn.unprotect_gui(${1:GUI})"
+        ],
+        "description": "Removes protection from the GUI. Errors if gui isn't already protected."
+      },
+      "Is Beta": {
+        "prefix": "syn.is_beta",
+        "body": [
+          "syn.is_beta()"
+        ],
+        "description": "Returns a bool indicating whether the user is using Synapse Beta or not."
+      },
+      "Request": {
+        "prefix": "syn.request",
+        "body": [
+          "syn.request(${1:options})"
+        ],
+        "description": "Sends a http request with parameters in options. More info and example: https://x.synapse.to/docs/reference/syn_lib.html#request"
+      },
+      "Secure Call": {
+        "prefix": "syn.secure_call",
+        "body": [
+          "syn.secure_call(${1:func}, ${1:script}, ${1:args...})"
+        ],
+        "description": "Spoofs caller environment and context when calling func with script's environment. You can pass as many arguments args as is required. secure_call returns whatever the called function returns. You can also pass a table to script if you wish to customize how the call will occur. More info and example: https://x.synapse.to/docs/reference/syn_lib.html#secure-call"
+      },
+      "Create Secure Function": {
+        "prefix": "syn.create_secure_function",
+        "body": [
+          "syn.create_secure_function(${1:code})"
+        ],
+        "description": "Protects your code with secure function, making it much more difficult for others to alter or view your code. This function can only be used by users who have been given access."
+      },
+      "Run Secure Function": {
+        "prefix": "syn.run_secure_function",
+        "body": [
+          "syn.run_secure_function(${1:code})"
+        ],
+        "description": "Runs code protected by secure function."
+      },
 
       //10.6: Websocket library
+      "Websocket": {
+        "prefix": "syn.websocket.connect",
+        "body": [
+          "syn.websocket.connect(${1:url})"
+        ],
+        "description": "Connects to the url specified. Errors if the connection fails. Information on using it: https://x.synapse.to/docs/reference/websocket_lib.html#websocket-library"
+      },
+      
 }
