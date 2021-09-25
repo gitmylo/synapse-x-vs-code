@@ -1,8 +1,8 @@
 {
     "name": "synapse-x-vs-code",
-    "displayName": "synapse x vs code",
-    "description": "adds synapse x code snippets",
-    "version": "0.0.1",
+    "displayName": "synapse x lua code snippets for vs code",
+    "description": "adds synapse x lua code snippets",
+    "version": "1.0.0",
     "engines": {
         "vscode": "^1.60.0"
     },
