@@ -1,1 +1,416 @@
-{}
+{
+    //lua specific
+      "Insert a function": {
+        "prefix": "function",
+        "body": [
+          "function ${1:name}($2)",
+          "  $0",
+          "end"
+        ],
+        "description": "Insert a function"
+      },
+      "check condition": {
+        "prefix": "if",
+        "body": [
+          "if ${1:condition} then",
+          "  $0",
+          "end",
+          ""
+        ],
+        "description": "check condition"
+      },
+      "repeat while": {
+        "prefix": "while",
+        "body": [
+          "while ${1:condition} do",
+          "  $0",
+          "end"
+        ],
+        "description": "repeat while"
+      },
+      "create local variable": {
+        "prefix": "local",
+        "body": [
+          "local ${1:name} = ${2:value}",
+          "$0"
+        ],
+        "description": "create local variable"
+      },
+      "create global variable": {
+        "prefix": "global",
+        "body": [
+          "${1:name} = ${2:value}",
+          "$0"
+        ],
+        "description": "create global variable"
+      },
+      "print text to console": {
+        "prefix": "print",
+        "body": [
+          "print(${1:value to print})",
+          "$0"
+        ],
+        "description": "print text to console"
+      },
+      "else if (put behind if)": {
+        "prefix": "elseif",
+        "body": [
+          "elseif ${1:condition} then",
+          "  $0",
+          "end",
+          ""
+        ],
+        "description": "else if (put behind if)"
+      },
+      "else (put behind if)": {
+        "prefix": "else",
+        "body": [
+          "else",
+          "  $0",
+          "end"
+        ],
+        "description": "else (put behind if)"
+      },
+      "line comment": {
+        "prefix": "--",
+        "body": [
+          "--$0"
+        ],
+        "description": "line comment"
+      },
+      "block comment": {
+        "prefix": "--[",
+        "body": [
+          "--[",
+          "",
+          "--]"
+        ],
+        "description": "block comment"
+      },
+      "true": {
+        "prefix": "true",
+        "body": [
+          "true"
+        ],
+        "description": "true"
+      },
+      "false": {
+        "prefix": "false",
+        "body": [
+          "false"
+        ],
+        "description": "false"
+      },
+      "and": {
+        "prefix": "and",
+        "body": [
+          "and $0"
+        ],
+        "description": "and"
+      },
+      "or": {
+        "prefix": "or",
+        "body": [
+          "or $0"
+        ],
+        "description": "or"
+      },
+      "repeat until": {
+        "prefix": "repeat",
+        "body": [
+          "repeat",
+          "  $0",
+          "until ${1:condition}"
+        ],
+        "description": "repeat until"
+      },
+      "do end": {
+        "prefix": "do",
+        "body": [
+          "do",
+          "  $0",
+          "end"
+        ],
+        "description": "do end"
+      },
+      "in": {
+        "prefix": "in",
+        "body": [
+          "in $0"
+        ],
+        "description": "in"
+      },
+      "nil (null)": {
+        "prefix": "nil",
+        "body": [
+          "nil"
+        ],
+        "description": "nil (null)"
+      },
+      "equals": {
+        "prefix": "==",
+        "body": [
+          "== $0"
+        ],
+        "description": "equals"
+      },
+      "not equals": {
+        "prefix": "~=",
+        "body": [
+          "~= $0"
+        ],
+        "description": "not equals"
+      },
+      "greater than": {
+        "prefix": ">",
+        "body": [
+          "> $0"
+        ],
+        "description": "greater than"
+      },
+      "greater than or equals": {
+        "prefix": ">=",
+        "body": [
+          ">= $0"
+        ],
+        "description": "greater than or equals"
+      },
+      "less than or equals": {
+        "prefix": "<=",
+        "body": [
+          "<= $0"
+        ],
+        "description": "less than or equals"
+      },
+      "less than": {
+        "prefix": "<",
+        "body": [
+          "< $0"
+        ],
+        "description": "less than"
+      },
+      "unary -": {
+        "prefix": "-",
+        "body": [
+          "-${1:varname}"
+        ],
+        "description": "unary -"
+      },
+      "add": {
+        "prefix": "+",
+        "body": [
+          "+ $0"
+        ],
+        "description": "add"
+      },
+      "subtract": {
+        "prefix": "-",
+        "body": [
+          "- $0"
+        ],
+        "description": "subtract"
+      },
+      "multiply": {
+        "prefix": "*",
+        "body": [
+          "* $0"
+        ],
+        "description": "multiply"
+      },
+      "divide": {
+        "prefix": "/",
+        "body": [
+          "/ $0"
+        ],
+        "description": "divide"
+      },
+      "modulo (lua 5 and above)": {
+        "prefix": "%",
+        "body": [
+          "% $0"
+        ],
+        "description": "modulo (lua 5 and above)"
+      },
+      "concatenation": {
+        "prefix": "..",
+        "body": [
+          ".. $0"
+        ],
+        "description": "concatenation"
+      },
+      "exponention": {
+        "prefix": "^",
+        "body": [
+          "^ $0"
+        ],
+        "description": "exponention"
+      },
+      "not": {
+        "prefix": "not",
+        "body": [
+          "not $0"
+        ],
+        "description": "not"
+      },
+      "assign": {
+        "prefix": "=",
+        "body": [
+          "= $0"
+        ],
+        "description": "assign"
+      },
+      "generic for": {
+        "prefix": "for",
+        "body": [
+          "for ${1:i} in pairs(${2:table}) do",
+          "  $0",
+          "end"
+        ],
+        "description": "generic for"
+      },
+
+
+      //Synapse x specific
+      //1: Environment functions
+      "Get Global Environment": {
+        "prefix": "getgenv",
+        "body": [
+          "getgenv()"
+        ],
+        "description": "Returns the environment that will be applied to each script ran by Synapse."
+      },
+      "Get Environment": {
+        "prefix": "getrenv",
+        "body": [
+          "getrenv()"
+        ],
+        "description": "Returns the global environment for the LocalScript state."
+      },
+      "Get Registry": {
+        "prefix": "getreg",
+        "body": [
+          "getreg()"
+        ],
+        "description": "Returns the Lua registry."
+      },
+      "Get Garbage Collection": {
+        "prefix": "getgc",
+        "body": [
+          "getgc(${1|true,false|})"
+        ],
+        "description": "Returns all functions and userdata values within the GC. Passing true will also return tables."
+      },
+      "Get Instances": {
+        "prefix": "getinstances",
+        "body": [
+          "getinstances()"
+        ],
+        "description": "Returns a list of all instances within the game."
+      },
+      "Get Nil Instances": {
+        "prefix": "getnilinstances",
+        "body": [
+          "getnilinstances()"
+        ],
+        "description": "Returns a list of all instances parented to nil within the game."
+      },
+      "Get Scripts": {
+        "prefix": "getscripts",
+        "body": [
+          "getscripts()"
+        ],
+        "description": "Returns a list of all scripts within the game."
+      },
+      "Get Loaded Modules": {
+        "prefix": "getloadedmodules",
+        "body": [
+          "getloadedmodules()"
+        ],
+        "description": "Returns all ModuleScripts loaded in the game."
+      },
+      "Get Connections": {
+        "prefix": "getconnections",
+        "body": [
+          "getconnections(${1:obj})"
+        ],
+        "description": "Gets a list of connections to the specified signal. You can do the following operations on a Connection: -Example=Description--.Function=The function connected to the connection--.State=The state of the connection--:Enable=Enables the connection--:Disable=Disables the connection--:Fire=Fires the connection"
+      },
+      "Fire signal": {
+        "prefix": "firesignal",
+        "body": [
+          "firesignal(${1:Signal}, ${2:Args...})"
+        ],
+        "description": "Fires all the connections connected to the signal Signal with Args."
+      },
+      "Fire Click Detector": {
+        "prefix": "fireclickdetector",
+        "body": [
+          "fireclickdetector(${1:Detector}, ${2:Distance})"
+        ],
+        "description": "Fires the designated ClickDetector with provided Distance. If Distance isn't provided, it will default to 0."
+      },
+      "Fire Proximity Prompt": {
+        "prefix": "fireproximityprompt",
+        "body": [
+          "fireproximityprompt(${1:Prompt}, ${2:Distance})"
+        ],
+        "description": "Fires the designated ProximityPrompt."
+      },
+      "Fire Touch Interest": {
+        "prefix": "firetouchinterest",
+        "body": [
+          "firetouchinterest(${1:Part}, ${2:ToTouch}, ${3:Toggle})"
+        ],
+        "description": "Fakes a .Touched event to ToTouch with Part. The Toggle argument must be either 0 or 1 (for fire/un-fire)."
+      },
+      "Is Network Owner": {
+        "prefix": "isnetworkowner",
+        "body": [
+          "isnetworkowner(${1:Part})"
+        ],
+        "description": "Returns true if the Part is owned by the player."
+      },
+      "Get Hidden Property": {
+        "prefix": "gethiddenproperty",
+        "body": [
+          "gethiddenproperty(${1:Object}, ${2:Property})"
+        ],
+        "description": "Returns the hidden property Property from Object. Errors if the property does not exist."
+      },
+      "Set Simulation Radius": {
+        "prefix": "setsimulationradius",
+        "body": [
+          "setsimulationradius(${1:SimulationRadius}, ${2:MaxSimulationRadius})"
+        ],
+        "description": "Set Simulation Radius"
+      },
+
+      //2: Script functions
+
+      //3: Table functions
+
+      //4: Input functions
+
+      //5: Hooking functions
+
+      //6: Reflection functions
+
+      //7: Console functions
+
+      //8: Filesystem functions
+
+      //9: Miscellaneous functions
+
+      //10: Libraries
+      //10.1: Bit library
+
+      //10.2: Crypt library
+
+      //10.3: Debug library
+
+      //10.4: Drawing library
+
+      //10.5: Syn library
+
+      //10.6: Websocket library
+}
