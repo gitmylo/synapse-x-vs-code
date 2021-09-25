@@ -333,7 +333,7 @@
         "body": [
           "getconnections(${1:obj})"
         ],
-        "description": "Gets a list of connections to the specified signal. You can do the following operations on a Connection: -Example=Description--.Function=The function connected to the connection--.State=The state of the connection--:Enable=Enables the connection--:Disable=Disables the connection--:Fire=Fires the connection"
+        "description": "Gets a list of connections to the specified signal. You can do the following operations on a Connection: https://x.synapse.to/docs/reference/environment.html#get-connections"
       },
       "Fire signal": {
         "prefix": "firesignal",
@@ -1219,5 +1219,4 @@
         ],
         "description": "Connects to the url specified. Errors if the connection fails. Information on using it: https://x.synapse.to/docs/reference/websocket_lib.html#websocket-library"
       },
-      
 }
