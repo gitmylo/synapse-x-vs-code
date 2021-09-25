@@ -7,6 +7,7 @@
     "displayName": "synapse x lua code snippets for vs code",
     "description": "adds synapse x lua code snippets",
     "version": "1.0.0",
+    "icon": "images/icon.png",
     "engines": {
         "vscode": "^1.60.0"
     },
