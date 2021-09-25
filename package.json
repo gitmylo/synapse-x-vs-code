@@ -1,4 +1,8 @@
 {
+    "publisher": "gitmylo",
+    "author": {
+        "name": "Mylo"
+    },
     "name": "synapse-x-vs-code",
     "displayName": "synapse x lua code snippets for vs code",
     "description": "adds synapse x lua code snippets",
@@ -16,5 +20,10 @@
                 "path": "./snippets/snippets.code-snippets"
             }
         ]
-    }
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/gitmylo/synapse-x-vs-code.git"
+    },
+    "homepage": "https://github.com/gitmylo/synapse-x-vs-code/blob/master/README.md"
 }
