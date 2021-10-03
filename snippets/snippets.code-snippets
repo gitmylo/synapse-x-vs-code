@@ -296,7 +296,7 @@
       "Get Garbage Collection": {
         "prefix": "getgc",
         "body": [
-          "getgc(${1|true,false|})"
+          "getgc()"
         ],
         "description": "Returns all functions and userdata values within the GC. Passing true will also return tables."
       },
@@ -380,7 +380,7 @@
       "Set Simulation Radius": {
         "prefix": "setsimulationradius",
         "body": [
-          "setsimulationradius(${1:SimulationRadius}, ${2:MaxSimulationRadius})"
+          "setsimulationradius(${1:SimulationRadius})"
         ],
         "description": "Set Simulation Radius"
       },
@@ -586,7 +586,7 @@
       "Decompile": {
         "prefix": "decompile",
         "body": [
-          "decompile(${1:Script}, ${2:mode}, ${3:timeout})"
+          "decompile(${1:Script})"
         ],
         "description": "Decompiles Script and returns the decompiled script with timeout. If the decompilation fails, then the return value will be an error message. Note: The mode parameter is deprecated and is not used in newer versions of Synapse."
       },
@@ -1020,7 +1020,7 @@
       "Get Proto": {
         "prefix": "debug.getproto",
         "body": [
-          "debug.getproto(${1:f}, ${2:index}, ${3:activated})"
+          "debug.getproto(${1:f}, ${2:index})"
         ],
         "description": "Gets the inner function of f at index. Note if activated is true, instead it will return a table of functions. These are the instances of that function that exist within the GC."
       },
