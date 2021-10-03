@@ -17,3 +17,7 @@ There are currently no known issues, if you find a bug report it in the issues o
 ### 1.0.0
 
 Initial release
+
+### 1.0.1
+
+Removed optional parameters
