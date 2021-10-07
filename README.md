@@ -21,3 +21,7 @@ Initial release
 ### 1.0.1
 
 Removed optional parameters
+
+### 1.0.2
+
+Removed base lua snippets, please use [roblox lsp](https://marketplace.visualstudio.com/items?itemName=Nightrains.robloxlsp) instead for this
